@@ -905,6 +905,8 @@ const Invoice = ({
                                     {SavedInvoices && SavedInvoices.length > 0 ? <>
                                         {
                                             SavedInvoices && SavedInvoices.map((items, index) => {
+                                                console.log(items)
+                                                const InvoiceProductAmount = items.product ? items.product.reduce((acc, item) => acc + item.totalCost * item.qty, 0) : 0;
                                                 return <tr key={index} style={{ marginBottom: 10 }} >
 
                                                     <td style={{
@@ -912,7 +914,7 @@ const Invoice = ({
                                                         fontWeight: 500,
                                                         // backgroundColor: "red",
                                                         width: "40%"
-                                                    }}> {NumberWithCommas(items.amount)} </td>
+                                                    }}> {NumberWithCommas(InvoiceProductAmount)} </td>
                                                     <td style={{
                                                         fontSize: 11,
                                                         fontWeight: 500,
