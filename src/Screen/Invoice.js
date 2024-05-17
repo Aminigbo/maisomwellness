@@ -16,6 +16,10 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaCheck, FaCheckDouble, Fa
 import { FaDeleteLeft, FaMoneyBill } from 'react-icons/fa6'
 import { BsCalculator, BsSendCheck } from 'react-icons/bs'
 
+
+import { useReactToPrint } from 'react-to-print';
+
+
 const Invoice = ({
     appState, disp_savedInvoice, disp_invoice_products,
     disp_view_invoice
@@ -345,6 +349,7 @@ const Invoice = ({
     }
 
 
+
     function AmountToPay() {
         let costOfProducts = InvoiceAmount
         let discountAmount = ((costOfProducts) * parseInt(discount)) / 100
@@ -371,7 +376,7 @@ const Invoice = ({
                     marginRight: 20
                 }}
             >
-                ₦{NumberWithCommas(discount ? grossTotal - amountToPay : InvoiceAmount - amountToPay+taxWithoutDiscount)}
+                ₦{NumberWithCommas(discount ? grossTotal - amountToPay : InvoiceAmount - amountToPay + taxWithoutDiscount)}
                 {/* ₦{NumberWithCommas(taxWithDiscount)} */}
             </p>
         </>
@@ -509,6 +514,13 @@ const Invoice = ({
     }
 
 
+    const componentRef = React.useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
+
+
     return (
         <div>
             <ToastContainer />
@@ -543,12 +555,13 @@ const Invoice = ({
                     }} >
                         {ViewInvoice && <>
                             <div
+                                ref={componentRef}
                                 style={{
                                     flex: 1,
                                     // backgroundColor: "#fff"
                                 }}
                                 className='invoice-s'  >
-                                <section className='invoice' style={{ padding: 20, backgroundColor: "#fff", width: "270px", }} id="pdf-content">
+                                <section className='invoice' style={{ padding: 20, backgroundColor: "#fff", }} id="pdf-content">
 
                                     <div className="in-c" style={{ flexDirection: "column", alignItems: "center" }} >
                                         <img src={logo} alt="" style={{ width: 170, height: 70 }} />
@@ -687,73 +700,76 @@ const Invoice = ({
                                 </section>
 
 
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    marginTop: 20,
-                                    backgroundColor: "#fff",
-                                    width: "100%", height: 70,
-                                    padding: 10
-                                }}>
 
-                                    <p
-                                        onClick={() => {
-                                            if (!InvoiceProducts.paid) {
-                                                // confirmPayment()
-                                                handleOpen()
-                                                // setamountToPay(InvoiceProducts.totalPrice)
-                                                // setamountWithVAT(InvoiceProducts.totalPrice + InvoiceProducts.totalPrice * 0.075)
-                                                // console.log(InvoiceProducts)
-                                            }
-                                        }}
-                                        style={{
-                                            backgroundColor: InvoiceProducts.paid ? '#fff' : "#2C9676",
-                                            color: InvoiceProducts.paid ? "#000" : "white",
-                                            padding: 5,
-                                            paddingRight: 10,
-                                            paddingLeft: 10,
-                                            // marginLeft: 10,
-                                            borderRadius: 6,
-                                            cursor: InvoiceProducts.paid ? "no-drop" : "pointer",
-                                            fontSize: InvoiceProducts.paid ? 20 : 13,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontWeight: InvoiceProducts.paid ? 900 : 500,
-                                        }}
-                                    >
-                                        {InvoiceProducts.paid ? <>
-                                            PAID  </> :
-                                            <>  Make payment <FaArrowAltCircleRight style={{ marginLeft: 10 }} /> </>}
-                                    </p>
+                            </div>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                marginTop: 20,
+                                backgroundColor: "#fff",
+                                width: "100%", height: 70,
+                                padding: 10
+                            }}>
 
-                                    {/* {!InvoiceProducts.paid &&
+                                <p
+                                    onClick={() => {
+                                        if (!InvoiceProducts.paid) {
+                                            // confirmPayment()
+                                            handleOpen()
+                                            // setamountToPay(InvoiceProducts.totalPrice)
+                                            // setamountWithVAT(InvoiceProducts.totalPrice + InvoiceProducts.totalPrice * 0.075)
+                                            // console.log(InvoiceProducts)
+                                        }
+                                    }}
+                                    style={{
+                                        backgroundColor: InvoiceProducts.paid ? '#fff' : "#2C9676",
+                                        color: InvoiceProducts.paid ? "#000" : "white",
+                                        padding: 5,
+                                        paddingRight: 10,
+                                        paddingLeft: 10,
+                                        // marginLeft: 10,
+                                        borderRadius: 6,
+                                        cursor: InvoiceProducts.paid ? "no-drop" : "pointer",
+                                        fontSize: InvoiceProducts.paid ? 20 : 13,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        fontWeight: InvoiceProducts.paid ? 900 : 500,
+                                    }}
+                                >
+                                    {InvoiceProducts.paid ? <>
+                                        PAID  </> :
+                                        <>  Make payment <FaArrowAltCircleRight style={{ marginLeft: 10 }} /> </>}
+                                </p>
+
+                                {/* {!InvoiceProducts.paid &&
                                         <> */}
-                                    <p
-                                        onClick={() => {
-                                            saveInvoice("PRINT")
-                                        }}
-                                        style={{
-                                            backgroundColor: '#fff',
-                                            color: "#000",
-                                            padding: 5,
-                                            paddingRight: 10,
-                                            paddingLeft: 10,
-                                            marginLeft: 10,
-                                            borderRadius: 6,
-                                            cursor: "pointer",
-                                            fontSize: 13,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center"
-                                        }}
-                                    >
-                                        Print   <FaPrint style={{ marginLeft: 3 }} />
-                                    </p>
+                                <p
+                                    // onClick={() => {
+                                    //     saveInvoice("PRINT")
+                                    // }}
+                                    onClick={handlePrint}
+                                    style={{
+                                        backgroundColor: '#fff',
+                                        color: "#000",
+                                        padding: 5,
+                                        paddingRight: 10,
+                                        paddingLeft: 10,
+                                        marginLeft: 10,
+                                        borderRadius: 6,
+                                        cursor: "pointer",
+                                        fontSize: 13,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    Print   <FaPrint style={{ marginLeft: 3 }} />
+                                </p>
 
-                                    {/* <p
+                                {/* <p
                                             onClick={() => {
                                                 saveInvoice("DOWNLOAD")
                                             }}
@@ -774,28 +790,73 @@ const Invoice = ({
                                             Download   <FaDownload style={{ marginLeft: 3 }} />
                                         </p> */}
 
-                                    {/* </>
+                                {/* </>
 
                                     } */}
 
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }} >
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }} >
+
+                                    <p
+                                        onClick={() => {
+                                            disp_view_invoice(null)
+                                        }}
+                                        style={{
+                                            backgroundColor: '#fff',
+                                            color: "#FA5A7D",
+                                            padding: 5,
+                                            paddingRight: 10,
+                                            paddingLeft: 10,
+                                            // marginLeft: 10,
+                                            borderRadius: 6,
+                                            cursor: "pointer",
+                                            fontSize: 13,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontWeight: 500
+                                        }}
+                                    >
+                                        Close   <FaTimes style={{ marginLeft: 2 }} />
+                                    </p>
+
+                                    {!InvoiceProducts.paid && InvoiceProducts.generated_by == User.name &&
 
                                         <p
                                             onClick={() => {
-                                                disp_view_invoice(null)
+                                                setloading(true)
+                                                deleteInvoice(InvoiceProducts.invoiceID, User.name)
+                                                    .then(responseX => {
+                                                        fetchAllInvoicesBySalesRep(User.name)
+                                                            .then(response => {
+                                                                disp_savedInvoice(response.data)
+                                                                Notify("Quote deleted successfully")
+                                                                setTimeout(() => {
+                                                                    setloading(false)
+                                                                    disp_view_invoice(null)
+                                                                }, 2000);
+
+                                                            })
+                                                            .catch(error => {
+                                                                setloading(false)
+                                                            })
+
+                                                    })
+                                                    .catch(error => {
+                                                        setloading(false)
+
+                                                    })
                                             }}
                                             style={{
-                                                backgroundColor: '#fff',
-                                                color: "#FA5A7D",
+                                                backgroundColor: '#fff', color: "#FA5A7D",
                                                 padding: 5,
                                                 paddingRight: 10,
                                                 paddingLeft: 10,
-                                                // marginLeft: 10,
+                                                marginLeft: 10,
                                                 borderRadius: 6,
                                                 cursor: "pointer",
                                                 fontSize: 13,
@@ -805,58 +866,11 @@ const Invoice = ({
                                                 fontWeight: 500
                                             }}
                                         >
-                                            Close   <FaTimes style={{ marginLeft: 2 }} />
+                                            Delete   <FaDeleteLeft style={{ marginLeft: 2 }} />
                                         </p>
+                                    }
 
-                                        {!InvoiceProducts.paid && InvoiceProducts.generated_by == User.name &&
-
-                                            <p
-                                                onClick={() => {
-                                                    setloading(true)
-                                                    deleteInvoice(InvoiceProducts.invoiceID, User.name)
-                                                        .then(responseX => {
-                                                            fetchAllInvoicesBySalesRep(User.name)
-                                                                .then(response => {
-                                                                    disp_savedInvoice(response.data)
-                                                                    Notify("Quote deleted successfully")
-                                                                    setTimeout(() => {
-                                                                        setloading(false)
-                                                                        disp_view_invoice(null)
-                                                                    }, 2000);
-
-                                                                })
-                                                                .catch(error => {
-                                                                    setloading(false)
-                                                                })
-
-                                                        })
-                                                        .catch(error => {
-                                                            setloading(false)
-
-                                                        })
-                                                }}
-                                                style={{
-                                                    backgroundColor: '#fff', color: "#FA5A7D",
-                                                    padding: 5,
-                                                    paddingRight: 10,
-                                                    paddingLeft: 10,
-                                                    marginLeft: 10,
-                                                    borderRadius: 6,
-                                                    cursor: "pointer",
-                                                    fontSize: 13,
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    fontWeight: 500
-                                                }}
-                                            >
-                                                Delete   <FaDeleteLeft style={{ marginLeft: 2 }} />
-                                            </p>
-                                        }
-
-                                    </div>
                                 </div>
-
                             </div>
                         </>}
 
