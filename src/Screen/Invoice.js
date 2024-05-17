@@ -396,31 +396,31 @@ const Invoice = ({
                     {/* <th>TOTAL</th> */}
                 </tr>
                 <tr>
-                    <td>
+                    <td  style={{  color: "#000", fontSize: 11,  }}>
                         Cost of prod.
                     </td>
-                    <td className='total' style={{ fontWeight: 500, color: "#000" }} >{NumberWithCommas(`₦${costOfProducts}`)}</td>
+                    <td className='total' style={{  color: "#000", fontSize: 11,  }} >{NumberWithCommas(`₦${costOfProducts}`)}</td>
                 </tr>
 
                 {discount > 0 &&
                     <tr>
-                        <td>Discount</td>
-                        <td> (-) {NumberWithCommas(`₦${discountAmount}`)}  <small>( {discount}%) </small> </td>
+                        <td  style={{ color: "#000", fontSize: 11,  }}>Discount</td>
+                        <td  style={{ color: "#000", fontSize: 11,  }}> (-) {NumberWithCommas(`₦${discountAmount}`)}  <small>( {discount}%) </small> </td>
                     </tr>
                 }
 
                 <tr>
-                    <td style={{ color: "#000" }}>Tax (VAT)</td>
-                    <td style={{ color: "#000" }}>(+) ₦{discount > 0 ? NumberWithCommas(taxWithDiscount) : NumberWithCommas(vat)}</td>
+                    <td style={{ color: "#000", fontSize: 11,  }}>Tax (VAT)</td>
+                    <td style={{ color: "#000", fontSize: 11,  }}>(+) ₦{discount > 0 ? NumberWithCommas(taxWithDiscount) : NumberWithCommas(vat)}</td>
                 </tr>
 
                 <tr style={{ marginTop: 10, alignItems: "center" }} >
-                    <td style={{ color: "#000" }}>Total</td>
-                    <td className='total' style={{ fontSize: 19, fontWeight: 900, color: "#000" }} > ₦{NumberWithCommas(discount > 0 ? grossTotal : costOfProducts + vat)}</td>
+                    <td style={{ color: "#000", fontSize: 11,  }}>Total</td>
+                    <td className='total' style={{ fontSize: 11,   color: "#000" }} > ₦{NumberWithCommas(discount > 0 ? grossTotal : costOfProducts + vat)}</td>
                 </tr>
                 <br /><br />
 
-                <p style={{ color: "#000", padding: 5, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, }} >
+                <p style={{ color: "#000", padding: 5, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11,  }} >
                     {InvoiceProducts.paid ? <>INVOICE PAID  </> : <> NOT PAID </>}
                 </p>
             </table>
@@ -564,7 +564,7 @@ const Invoice = ({
                                     ref={componentRef}
                                     style={{
                                         flex: 1,
-                                        marginLeft:-15,
+                                        marginLeft:-7,
                                         // backgroundColor: "red"
                                     }}
                                     className='invoice-s'  >
@@ -573,12 +573,12 @@ const Invoice = ({
                                         <div className="in-c" style={{ flexDirection: "column", alignItems: "center" }} >
                                             <img src={logo} alt="" style={{ width: 170, height: 70 }} />
                                             <div className="in-l" style={{ textAlign: "center" }} >
-                                                <h3 style={{ fontSize: 18, color: "#000" }} >Maison Wellness place</h3>
+                                                <b style={{ fontSize: 10, color: "#000" }} >Maison Wellness place</b>
                                             </div>
 
                                             <div className="in-r">
-                                                <spam style={{ color: "#000", fontSize: 14 }} >2nd creek drive Woji</spam>
-                                                <p style={{ color: "#000", fontSize: 14 }} >09126114067,  <spam>https://maisonwellnessplace.com</spam></p>
+                                                <spam style={{ color: "#000", fontSize: 12 }} >2nd creek drive Woji</spam>
+                                                <p style={{ color: "#000", fontSize: 10 }} >09126114067,  <spam>https://maisonwellnessplace.com</spam></p>
                                             </div>
                                         </div>
 
@@ -590,8 +590,8 @@ const Invoice = ({
                                             marginTop: 20,
                                             marginBottom: 6,
                                         }}>
-                                            <b style={{ color: "#000", fontSize: 14 }} >Invoice No.:</b>
-                                            <p style={{ color: "#000", fontSize: 13 }} >{InvoiceProducts.invoiceID}</p>
+                                            <b style={{ color: "#000", fontSize: 10 }} >Invoice No.:</b>
+                                            <p style={{ color: "#000", fontSize: 10 }} >{InvoiceProducts.invoiceID}</p>
                                         </div>
                                         <div style={{
                                             display: "flex",
@@ -599,8 +599,8 @@ const Invoice = ({
                                             justifyContent: "space-between",
                                             marginBottom: 6,
                                         }}>
-                                            <b style={{ color: "#000", fontSize: 14 }} >Date:</b>
-                                            <p style={{ color: "#000", fontSize: 13 }} >{getFormattedDate()}</p>
+                                            <b style={{ color: "#000", fontSize: 10 }} >Date:</b>
+                                            <p style={{ color: "#000", fontSize: 10 }} >{getFormattedDate()}</p>
                                         </div>
                                         <div style={{
                                             display: "flex",
@@ -608,15 +608,15 @@ const Invoice = ({
                                             justifyContent: "space-between",
                                             marginBottom: 6,
                                         }}>
-                                            <b style={{ color: "#000", fontSize: 14 }} >Sales Person:</b>
-                                            <p style={{ color: "#000", fontSize: 13 }} >{User.name}</p>
+                                            <b style={{ color: "#000", fontSize: 10 }} >Sales Person:</b>
+                                            <p style={{ color: "#000", fontSize: 10 }} >{User.name}</p>
                                         </div>
 
                                         <table className='table1' style={{ marginTop: 30 }} >
                                             <tr className='tr1'>
                                                 <th style={{
                                                     fontSize: 11,
-                                                    fontWeight: 500,
+                                                    // fontWeight: 500,
                                                     // backgroundColor: "red",
                                                     width: "16%",
                                                     color: "#000"
@@ -661,32 +661,32 @@ const Invoice = ({
                                                             color: "#000"
                                                         }}>{index + 1}</td>
                                                         <td style={{
-                                                            fontSize: 11,
-                                                            fontWeight: 500,
+                                                            fontSize: 10,
+                                                            // fontWeight: 500,
                                                             color: "#000",
                                                             marginRight: 8,
                                                             width: "90%",
-                                                            fontWeight: 700,
+                                                            // fontWeight: 700,
                                                         }}>{items.name}</td>
                                                         <td style={{
-                                                            fontSize: 11,
-                                                            fontWeight: 500,
+                                                            fontSize: 10,
+                                                            // fontWeight: 500,
                                                             // backgroundColor: "red",
                                                             width: "30%",
                                                             textAlign: "center",
                                                             color: "#000"
                                                         }}> {NumberWithCommas(`₦${items.metaData.price}`)} </td>
                                                         <td style={{
-                                                            fontSize: 11,
-                                                            fontWeight: 500,
+                                                            fontSize: 10,
+                                                            // fontWeight: 500,
                                                             // backgroundColor: "red",
                                                             width: "30%",
                                                             textAlign: "center",
                                                             color: "#000"
                                                         }}>{items.qty}</td>
                                                         <td style={{
-                                                            fontSize: 11,
-                                                            fontWeight: 500,
+                                                            fontSize: 10    ,
+                                                            // fontWeight: 500,
                                                             // backgroundColor: "red",
                                                             width: "30%",
                                                             textAlign: "center",
