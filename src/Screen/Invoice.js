@@ -556,21 +556,24 @@ const Invoice = ({
                         {ViewInvoice && <>
                             <div style={{
                                 display: "flex",
-                                flexDirection: "column"
+                                flexDirection: "column",
+                                padding:5,
+                                backgroundColor:"#fff"
                             }} >
                                 <div
                                     ref={componentRef}
                                     style={{
                                         flex: 1,
-                                        // backgroundColor: "#fff"
+                                        marginLeft:-15,
+                                        // backgroundColor: "red"
                                     }}
                                     className='invoice-s'  >
-                                    <section className='invoice' style={{ padding: 20, backgroundColor: "#fff", }} id="pdf-content">
+                                    <section className='invoice' style={{ backgroundColor: "#fff", }} id="pdf-content">
 
                                         <div className="in-c" style={{ flexDirection: "column", alignItems: "center" }} >
                                             <img src={logo} alt="" style={{ width: 170, height: 70 }} />
                                             <div className="in-l" style={{ textAlign: "center" }} >
-                                                <h3 style={{ fontSize: 23, color: "#000" }} >Maison Wellness place</h3>
+                                                <h3 style={{ fontSize: 18, color: "#000" }} >Maison Wellness place</h3>
                                             </div>
 
                                             <div className="in-r">
